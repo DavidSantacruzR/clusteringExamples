@@ -21,7 +21,7 @@ class ClusteringWithDimensionalityReduction(ABC):
     def principal_components_estimation(self):
         pca = dec.PCA(n_components=self.components, svd_solver="full")  # Method full as standard.
         principal_components = pd.DataFrame(data=pca.fit_transform(self.data), columns=["component_1", "component_2"])
-        principal_components = principal_components.merge(data[self.target].to_frame()
+        principal_components = principal_components.merge(self.data[self.target].to_frame()
                                                           , left_index=True, right_index=True)
         principal_components = principal_components.iloc[:, [2, 1, 0]]  # Reorders the dataframe columns.
         # It will work regardless of the number of features as the components are still 2.
